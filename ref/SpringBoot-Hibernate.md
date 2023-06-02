@@ -46,8 +46,7 @@ This step encompassing setting up the details for database connection, dialect a
    - such as `@Entity`, `@Table`, `@Column`, etc.
    - to map EC with corresponding tables and columns.
 
-Sample code in Kotlin:
-
+Sample code in Kotlin & Java:
 ```kotlin
 import javax.persistence.*
 
