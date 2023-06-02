@@ -17,6 +17,30 @@ spring init --dependencies='web,jpa,security,devtools' `
 
 ---
 
+```mermaid
+graph LR;
+	HTML --> UserTDO
+	JSON --> UserTDO
+	subgraph Presentation Layers
+		subgraph Data Transfer Object
+			UserTDO[-name\n-roles]
+		end
+		subgraph User Details
+			User[-name\n-password]
+		end
+		subgraph User Role
+			Role[-name]
+		end
+	UserTDO-->Mapper
+	Mapper --> User
+	Mapper --> Role
+	end
+	POJO[Flat Data Objects]
+	User --- POJO
+	Role --- POJO
+```
+
+
 The steps for connecting Spring with Hibernate are outlined below.
 
 #### 1. Configure the Database
