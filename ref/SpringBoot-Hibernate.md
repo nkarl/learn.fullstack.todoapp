@@ -1,9 +1,10 @@
 ### I. Start A New Project
-
 ---
 
-Start a new project via SpringInitializr @`https://start.spring.io/`, or via the Spring CLI:
+Start a new project:
 
+- via the *SpringInitializr* at https://start.spring.io/, or
+- using the Spring CLI:
 ```sh
 # for pwsh; for other shells use "\" instead of "`"
 spring init --dependencies='web,jpa,security,devtools' `
@@ -13,8 +14,8 @@ spring init --dependencies='web,jpa,security,devtools' `
 			todoApp
 ```
 
-### II. Connecting Spring Web with Hibernate
 
+### II. Connecting Spring Web with Hibernate
 ---
 
 ```mermaid
@@ -258,8 +259,8 @@ public class UserDaoImpl implements UserDao {
   - **Performance:** there is an overhead to transactions: resource locking, logging, and transaction bookkeeping.
 - _Transactions should be kept as short as possible for efficiency in terms of resource locking and concurrency optimization_.
 
-### III. Conclusion
 
+### III. Conclusion
 ---
 
 Above is a detailed model of connecting Spring and Hibernate together.
@@ -267,14 +268,14 @@ Above is a detailed model of connecting Spring and Hibernate together.
 There are few things I can consider next:
 
 - use a mock dataset for banking data to practice building a backend:
-  - get the mock dataset from:
-    - https://www.mockaroo.com/
-    - I will need to design the schemas for user
-    - TASK: research typical schemas for banking data
-  - build APIs with Spring and Hibernate
+	 - get the mock dataset from:
+		 - https://www.mockaroo.com/
+		 - I will need to design the schemas for user
+		 - TASK: research typical schemas for banking data
+	 - build APIs with Spring and Hibernate
 - build a simple front end with React
-  - should have a very bareboned table containing records
+	- should have a very bareboned table containing records
 - extend the system to include more services
-  - authentication (via JWT)
-  - etc.
-
+	- authentication (via JWT)
+	- etc.
+ 
