@@ -102,9 +102,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	@Column
+	@Column(nullable = false)
     private String name;
-	@Column
+	@Column(nullable = false)
     private String email;
 
     // Constructors, getters, and setters
@@ -121,6 +121,9 @@ public class User {
     public void   setName(String name) { this.name = name; }
 
 ```
+
+> [!important]
+> It's important to note that the use of `Optional` is a design decision and should be used judiciously. It is generally recommended to avoid wrapping non-null fields with `Optional`, as it adds unnecessary complexity. Only use `Optional` when dealing with genuinely optional values that can be absent or null.
 
 #### 5. Implement Data Access Objects (DAO)
 
