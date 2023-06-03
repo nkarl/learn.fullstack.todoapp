@@ -1,4 +1,4 @@
-### I. Start A New Project
+## I. Start A New Project
 ---
 
 Start a new project:
@@ -15,7 +15,7 @@ spring init --dependencies='web,jpa,security,devtools' `
 ```
 
 
-### II. Connecting Spring Web with Hibernate
+## II. Connecting Spring Web with Hibernate
 ---
 
 ```mermaid
@@ -44,13 +44,13 @@ graph LR;
 
 The steps for connecting Spring with Hibernate are outlined below.
 
-#### 1. Configure the Database
+### 1. Configure the Database
 
 1. ensure JDBC driver
    - _which should be included when initializing with JPA_
 2. create database schemas and tables
 
-#### 2. Configure Spring
+### 2. Configure Spring
 
 1. create Spring config file to define:
    - Spring Beans, and their
@@ -60,13 +60,59 @@ The steps for connecting Spring with Hibernate are outlined below.
    - session management: `SessionFactory`
    - transaction management
 
-#### 3. Configure Hibernate
+### 3. Configure Hibernate
 
 This step encompassing setting up the details for database connection, dialect and other properties.
 
-- *NOTE*: make a note on JDBC vs JPA later.
+#### JBDC vs. JPA
 
-#### 4. Define Entity Classes
+JPA provides another abstraction layer on top of JDBC. With JPA, the need to write SQL queries like with JDBC is eliminated. Database queries are mapped directly to Java objects and are managed via an entity manager as shown below:
+
+```java
+// JBDC sample
+@Repository
+public class CourseJbdcRepository {
+
+    @Autowired
+    private JdbcTemplate springJdbcTemplate;
+
+    private static String INSERT_QUERY = """
+                INSERT INTO course(id, name, author)
+                VALUES(?, ?, ?);
+            """;
+
+    public void insert(Course course) {
+        springJdbcTemplate.update(INSERT_QUERY,
+                course.getId(), course.getName(), course.getAuthor());
+    }
+}
+```
+
+```java
+// JPA sample
+@Repository
+@Transactional
+public class UserJpaRepository {
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	public void insert(User user) {
+		entity.Manager.merge(user);
+	}
+}
+```
+
+
+In short, the differences between JBDC and JPA are summarized in the following table:
+
+| JBDC                                                                                | JPA                                                                                                                    |
+| ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| We write SQL commands to a relational database.                                     | We construct database-driven Java programs using OOP semantics.                                                        |
+| We *need to write out the full SQL query* for associating database tables.          | We *only need annotations* to create one-to-one, one-to-many, many-to-one, and many-to-many associations.              |
+|                                                                                     | JPA handles all the time-consuming, error-prone coding required to convert between OOP Java code and backend database. |
+| Is database-dependent. *Different scripts must be written for different databases*. | Is database-agnostic. *Same Java code can be used in a variety of databases with few/no modifications*.                       | 
+
+### 4. Define Entity Classes
 
 1. create Entity Classes (EC) that represents tables
 2. decorate EC with Hibernate annotations
@@ -127,7 +173,7 @@ public class User {
 > [!important]
 > It's important to note that the use of `Optional` is a design decision and should be used judiciously. It is generally recommended to avoid wrapping non-null fields with `Optional`, as it adds unnecessary complexity. Only use `Optional` when dealing with genuinely optional values that can be absent or null.
 
-#### 5. Implement Data Access Objects (DAO)
+### 5. Implement Data Access Objects (DAO)
 
 1. create DAO classes to encapsulate database operations and interact with Hibernate to perform CRUD operations
 2. use Hibernates to execute database queries and manage transactions
@@ -245,7 +291,7 @@ public class UserDaoImpl implements UserDao {
 }
 ```
 
-#### 6. Enable Transaction Management
+### 6. Enable Transaction Management
 
 - _In general, database operations should be grouped into a transaction if they are in a logical unit of work_. There are few guidelines to consider:
   - **Atomicity:** operations that should be executed atomically, i.e. either they all succeed or all fail. This happens when we need to update multiple related tables. All updated are applied or none at all for data integrity.
@@ -255,7 +301,7 @@ public class UserDaoImpl implements UserDao {
 - _Transactions should be kept as short as possible for efficiency in terms of resource locking and concurrency optimization_.
 
 
-### III. Conclusion
+## III. Conclusion
 ---
 
 Above is a detailed model of connecting Spring and Hibernate together.
