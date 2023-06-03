@@ -64,6 +64,8 @@ The steps for connecting Spring with Hibernate are outlined below.
 
 This step encompassing setting up the details for database connection, dialect and other properties.
 
+- *NOTE*: make a note on JDBC vs JPA later.
+
 #### 4. Define Entity Classes
 
 1. create Entity Classes (EC) that represents tables
