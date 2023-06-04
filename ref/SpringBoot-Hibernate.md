@@ -112,6 +112,14 @@ In short, the differences between JBDC and JPA are summarized in the following t
 |                                                                                     | JPA handles all the time-consuming, error-prone coding required to convert between OOP Java code and backend database. |
 | Is database-dependent. *Different scripts must be written for different databases*. | Is database-agnostic. *Same Java code can be used in a variety of databases with few/no modifications*.                       | 
 
+| JPA                                        | Hibernate                                    |
+| ------------------------------------------ | -------------------------------------------- |
+| Is an *interface*.                         | Is the most popular *implementation of JPA*. |
+| How do you define entities? `@Entity`      |                                              |
+| How do you map attributes? `@Column`       |                                              |
+| Who manages the entities? entity managers. |                                              |
+| *Defines how* you can map the objects.       | *Implements* the mapping.                      | 
+
 ### 4. Define Entity Classes
 
 1. create Entity Classes (EC) that represents tables
